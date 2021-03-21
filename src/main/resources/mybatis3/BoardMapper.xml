@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="emp">
+
+    <select id="insertEvo" statementType="PREPARED" parameterType="shin.spring.mvc.vo.EmpVO">
+        insert into Emp (position, name, phone1, phone2, phone3, email1, email2) values (#{position}, #{name}, #{phone1}, #{phone2}, #{phone3}, #{email1}, #{email2})
+    </select>
+
+    <select id="readLastEmp" statementType="PREPARED" resultType="shin.spring.mvc.vo.EmpVO">
+        select * from Emp order by eno desc limit 0,1;
+    </select>
+
+    <select id="readAllData" statementType="PREPARED" parameterType="int" resultType="shin.spring.mvc.vo.EmpVO">
+        select * from Emp order by name asc limit #{snum} , 30;
+    </select>
+
+    <select id="readAllDataCnt" statementType="PREPARED" resultType="int">
+        select count(eno) from Emp;
+    </select>
+
+    <select id="readAllFindData" statementType="PREPARED" parameterType="map" resultType="shin.spring.mvc.vo.EmpVO">
+        select * from Emp where ${findtype} like #{findkey} order by name asc limit #{snum} , 30;
+    </select>
+
+    <select id="readAllFindDataCnt" statementType="PREPARED" parameterType="map" resultType="int">
+        select count(eno) from Emp where ${findtype} like #{findkey};
+    </select>
+
+    <select id="readOneData" statementType="PREPARED" parameterType="String" resultType="shin.spring.mvc.vo.EmpVO">
+        select * from Emp where eno = #{eno};
+    </select>
+
+    <update id="platUpdateData" statementType="PREPARED" parameterType="shin.spring.mvc.vo.EmpVO">
+        update Emp set position = #{position} , name = #{name} , phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3},
+                       email1 = #{email1} , email2 = #{email2}
+        where eno = #{eno};
+    </update>
+
+    <delete id="delData" statementType="PREPARED" parameterType="int">
+        delete from Emp where eno = #{eno};
+    </delete>
+
+    <select id="insertModiEvo" statementType="PREPARED" parameterType="shin.spring.mvc.vo.EmpVO">
+        insert into Emp (eno, position, name, phone1, phone2, phone3, email1, email2) values (#{eno}, #{position}, #{name}, #{phone1}, #{phone2}, #{phone3}, #{email1}, #{email2})
+    </select>
+
+</mapper>
